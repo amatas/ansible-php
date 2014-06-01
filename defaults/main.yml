@@ -35,4 +35,5 @@ php_parameters:
 
 php_fpm_parameters:
   listen: /var/run/php5-fpm.sock
-
+  user: "{{php_user}}"
+  group: "{{php_group}}"
