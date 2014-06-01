@@ -29,12 +29,13 @@
   template: src=php.ini.j2 dest={{ php_conf_dir }}/php.ini mode=0644
       validate="grep ANSIBLE_MANAGED %s"
   tags:
-    - install
+    - configure
     - php
 
 - name: Setting variables in config file php.ini
   lineinfile: dest=/etc/php.ini state=present regexp="^ *;? *({{ item.key }} *=) *(.*)" line="\\1 {{item.value}}" backrefs=yes
   with_dict: php_parameters
+  notify: restart php_fpm
   tags:
     - configure
     - php 
@@ -42,3 +43,6 @@
 - name: Service php_fpm must be enabled
   service: name=php-fpm state=started enabled=yes
   when: php_mode == 'php_fpm'
+  tags:
+    - configure
+    - php

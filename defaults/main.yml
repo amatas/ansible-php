@@ -1,8 +1,8 @@
 ---
 php_conf_dir: /etc
 
-# php_mode: php_fpm
-php_mode: php
+php_mode: php_fpm
+#php_mode: php
 
 php_packages:
   - php
@@ -16,6 +16,9 @@ php_fpm_packages:
   - php-gd
   - php-xml
   - php-fpm
+
+php_user: www-data
+php_group: www-data
 
 php_parameters:
   expose_php: 'Off'
