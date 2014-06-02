@@ -20,6 +20,10 @@ php_fpm_packages:
 php_user: www-data
 php_group: www-data
 
+php_fpm_log_directory: /var/log/php-fpm
+php_fpm_session_directory: /var/lib/php/session
+php_fpm_socket: /var/run/php5-fpm.sock
+
 php_parameters:
   expose_php: 'Off'
   display_errors: 'Off'
@@ -34,6 +38,6 @@ php_parameters:
   allow_url_include: 'Off'
 
 php_fpm_parameters:
-  listen: /var/run/php5-fpm.sock
+  listen: "{{php_fpm_socket}}"
   user: "{{php_user}}"
   group: "{{php_group}}"

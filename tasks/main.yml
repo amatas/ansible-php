@@ -16,6 +16,15 @@
     - install
     - php
 
+- name: Set directories permissions
+  file: path={{item}} owner={{php_user}} group={{php_group}} state=directory mode=0770
+  with_items:
+    - "{{php_fpm_log_directory}}"
+    - "{{php_fpm_session_directory}}"
+  tags:
+    - configure
+    - php
+
 - name: Setting variables in config file php-fpm
   lineinfile: dest=/etc/php-fpm.d/www.conf state=present regexp="^ *;? *({{ item.key }} *=) *(.*)" line="\\1 {{item.value}}" backrefs=yes
   with_dict: php_fpm_parameters
